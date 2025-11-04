@@ -17,7 +17,6 @@ const LoadingScreen: React.FC = () => {
 
     useEffect(() => {
         if (!file) {
-            // No file uploaded, redirect to home
             navigate('/');
             return;
         }
@@ -39,18 +38,15 @@ const LoadingScreen: React.FC = () => {
             } catch (err) {
                 console.error(err);
                 setError('Failed to analyze bookshelf. Please try again.');
+            } finally {
+                clearInterval(phraseInterval); // stop phrases only when API finishes
             }
         };
 
-        // Simulate loading for 1–2 seconds minimum if needed
-        const timeout = setTimeout(() => {
-            clearInterval(phraseInterval);
-            analyze();
-        }, 1000);
+        analyze(); // start the API call immediately
 
         return () => {
             clearInterval(phraseInterval);
-            clearTimeout(timeout);
         };
     }, [file, navigate, setResult]);
 
