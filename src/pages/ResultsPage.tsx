@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import type { BookshelfAnalysis } from '../services/types';
 import styles from '../styles/Results.module.css';
 
@@ -10,10 +10,7 @@ interface ScoreBarProps {
 }
 
 const ScoreBar: React.FC<ScoreBarProps> = ({ value, leftLabel, rightLabel }) => {
-    // Fill width is always positive percentage
     const fillWidth = `${Math.abs(value) * 50}%`;
-
-    // If value >=0, fill starts at 50% (center), else start at center - width
     const fillLeft = '50%';
     const fillTransform = value < 0 ? `translateX(-${fillWidth})` : 'none';
 
@@ -45,8 +42,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
     const { three_words, scores, recommendation } = result;
     const scoreEntries = Object.entries(scores);
 
-    const [showModal, setShowModal] = useState(false);
-
     // Lock scrolling
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -55,21 +50,25 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
         };
     }, []);
 
-    // Axis labels
     const axisLabels: Record<string, [string, string]> = {
         age: ['Classic', 'Modern'],
-        intensity: ['Beach', 'Intense'],
-        mood: ['Dystopian', 'Light'],
+        intensity: ['Beach Reads', 'Intense Study'],
+        mood: ['Dystopian', 'Inspiring'],
         popularity: ['Esoteric', 'Well-known'],
-        focus: ['Plot', 'Character'],
+        focus: ['Plot', 'Characters'],
         realism: ['Down-to-earth', 'Imaginary'],
     };
 
     return (
         <div className={styles.container}>
-            {/* Taste Words */}
+            {/* Header */}
+            <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
+
+            {/* Three Words */}
             <section className={styles.tasteWordsSection}>
-                <h2 className={styles.tasteWordsHeading}>Your Literary Taste</h2>
+                <h2 className={styles.tasteWordsHeading}>
+                    Your collection summed up in three words
+                </h2>
                 <div className={styles.wordContainer}>
                     {[three_words.word_one, three_words.word_two, three_words.word_three].map(word => (
                         <span key={word} className={styles.word}>{word}</span>
@@ -79,6 +78,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
 
             {/* Score Bars */}
             <section className={styles.scoresSection}>
+                <h2 className={styles.scoresHeading}>
+                    How your taste in literature stacks up against everybody else's
+                </h2>
                 {scoreEntries.map(([metric, value]) => (
                     <ScoreBar
                         key={metric}
@@ -89,24 +91,13 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
                 ))}
             </section>
 
-            {/* Recommended Book */}
+            {/* Recommendation */}
             <section className={styles.recommendationSection}>
-                <div className={styles.recommendationCard} onClick={() => setShowModal(true)}>
-                    <h4 className={styles.recommendationTitle}>
-                        Recommended Book: {recommendation.recommended_book}
-                    </h4>
-                    <span className={styles.infoCircle}>i</span>
+                <div className={styles.recommendationCard}>
+                    <p className={styles.recommendationLabel}>Recommended Book:</p>
+                    <h3 className={styles.recommendationTitle}>{recommendation.recommended_book}</h3>
+                    <p className={styles.recommendationExplanation}>{recommendation.explanation}</p>
                 </div>
-
-                {showModal && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalContent}>
-                            <button className={styles.closeButton} onClick={() => setShowModal(false)}>✕</button>
-                            <h3>{recommendation.recommended_book}</h3>
-                            <p>{recommendation.explanation}</p>
-                        </div>
-                    </div>
-                )}
             </section>
         </div>
     );

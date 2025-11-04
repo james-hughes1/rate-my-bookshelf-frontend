@@ -32,6 +32,7 @@
 
 .primary-button {
     padding: 12px 24px;
+    font-family: 'Georgia', serif;
     font-size: 16px;
     font-weight: bold;
     background-color: #8b5cf6;
@@ -76,9 +77,4 @@
     flex-direction: column;
     align-items: center;
     gap: 24px;
-}
-
-.finished-text {
-    font-size: 1.5rem;
-    font-weight: 600;
 }

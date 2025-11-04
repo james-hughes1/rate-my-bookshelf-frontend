@@ -1,6 +1,7 @@
 import { BookOpen } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import '../styles/UploadForm.css';
+import '../styles/index.css';
 import { getRandomizedPhrases } from '../data/loadingPhrases';
 import { mockAnalyzeBookshelf } from '../services/api';
 import type { BookshelfAnalysis } from '../services/types';

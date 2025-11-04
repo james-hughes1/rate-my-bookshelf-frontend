@@ -3,12 +3,21 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    /* more even spacing */
     align-items: center;
     padding: 16px;
     overflow: hidden;
     box-sizing: border-box;
     background: linear-gradient(to bottom right, #ffb049, #c224fc);
+}
+
+.pageHeader {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #851c1c;
+    text-align: center;
+    margin-bottom: 16px;
 }
 
 /* Three Words Section */
@@ -17,9 +26,9 @@
 }
 
 .tasteWordsHeading {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     color: white;
 }
 
@@ -30,7 +39,7 @@
 }
 
 .word {
-    background-color: #8b5cf6;
+    background-color: #851c1c;
     padding: 8px 16px;
     border-radius: 12px;
     font-weight: 600;
@@ -41,55 +50,41 @@
 .scoresSection {
     width: 100%;
     max-width: 600px;
-    /* make sure it's wide */
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Score container */
+.scoresHeading {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
 .scoreBarContainer {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 16px;
-    /* consistent spacing between bars */
 }
 
-/* Labels */
-.barLabelLeft {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    /* FIXED width for all labels */
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 8px;
-    background-color: #c224fc;
+.barLabelLeft,
+.barLabelRight {
+    background-color: #5e39ae;
     color: white;
+    font-size: 0.75rem;
+    width: 90px;
+    /* fixed width for all labels */
     text-align: center;
-    white-space: nowrap;
+    border-radius: 8px;
+    padding: 4px 0;
 }
 
 .barLabelRight {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    /* FIXED width for all labels */
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 8px;
-    background-color: #ffb049;
-    color: white;
-    text-align: center;
-    white-space: nowrap;
+    background-color: #f59e0b;
+    /* right labels a different color */
 }
 
-/* Bar background */
 .barBackground {
     flex: 1;
     height: 12px;
@@ -98,15 +93,13 @@
     position: relative;
 }
 
-/* Bar fill */
 .barFill {
     position: absolute;
     height: 100%;
-    background-color: #8c1d46;
+    background-color: #851c1c;
     border-radius: 6px;
 }
 
-/* Center line */
 .centerLine {
     position: absolute;
     top: 0;
@@ -117,80 +110,37 @@
     transform: translateX(-50%);
 }
 
-/* Recommended Book */
-.recommendationSection {
-    text-align: center;
-}
-
+/* Recommendation */
 .recommendationCard {
     padding: 16px 24px;
     border-radius: 16px;
-    background-color: #fafafa;
-    display: inline-flex;
+    background-color: #ffd9c5;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    position: relative;
-    /* ensure modal overlay sits above */
+    gap: 8px;
 }
 
-
-.recommendationTitle {
-    font-size: 1.2rem;
-    font-weight: bold;
+.recommendationLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    color: #555;
     margin: 0;
 }
 
-.infoCircle {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: #3b82f6;
-    /* blue circle */
-    color: white;
+.recommendationTitle {
     font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-/* Modal */
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modalContent {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    max-width: 400px;
-    /* smaller width */
-    width: 90%;
-    max-height: 60%;
-    /* smaller height */
+    font-size: 1.4rem;
     text-align: center;
-    /* center text */
-    overflow-y: auto;
-    position: relative;
+    margin: 4px 0;
+    color: #1a202c;
+    /* darker for emphasis */
 }
 
-.closeButton {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+.recommendationExplanation {
+    font-size: 0.9rem;
+    text-align: center;
+    margin: 0;
+    color: #333;
 }
