@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/index.css';
 import Hero from '../components/Hero';
 import UploadForm from '../components/UploadForm';
 import NavIcon from '../components/NavIcon';

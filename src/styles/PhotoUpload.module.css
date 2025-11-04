@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     padding: 32px;
-    background-color: #fafafa;
+    background-color: black;
     text-align: center;
 }
 
@@ -17,13 +17,13 @@
 .title {
     font-size: 2rem;
     font-weight: 700;
-    color: #333;
+    color: white;
     margin-bottom: 12px;
 }
 
 .subtitle {
     font-size: 1rem;
-    color: #666;
+    color: rgba(255, 255, 255, 0.74);
     line-height: 1.5;
 }
 
@@ -43,10 +43,9 @@
     align-items: center;
     width: 100%;
     aspect-ratio: 4 / 3;
-    border: 2px dashed #8b5cf6;
     border-radius: 16px;
     color: #8b5cf6;
-    background-color: #f9f9ff;
+    background: rgb(237, 234, 234);
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
