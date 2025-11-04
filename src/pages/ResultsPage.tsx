@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useBookshelf } from '../context/BookshelfContext';
 import { useNavigate } from 'react-router-dom';
-import type { BookshelfAnalysis } from '../services/types';
 import styles from '../styles/Results.module.css';
 import ScoreBar from '../components/ScoreBar';
 

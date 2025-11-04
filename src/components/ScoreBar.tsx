@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styles from '../styles/Results.module.css';
 
 // ScoreBar Component
