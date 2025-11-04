@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { BookshelfAnalysis } from '../services/types';
 import styles from '../styles/Results.module.css';
 
@@ -10,9 +10,16 @@ const Results: React.FC<ResultsProps> = ({ result }) => {
     const { three_words, scores, recommendation } = result;
     const scoreEntries = Object.entries(scores);
 
+    // Lock scrolling
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
     return (
         <div className={styles.container}>
-            {/* Taste Words */}
             <section className={styles.tasteWordsSection}>
                 <h2 className={styles.tasteWordsHeading}>Your Literary Taste</h2>
                 <div className={styles.wordContainer}>
@@ -22,7 +29,6 @@ const Results: React.FC<ResultsProps> = ({ result }) => {
                 </div>
             </section>
 
-            {/* Scores */}
             <section className={styles.scoresSection}>
                 <h3 className={styles.scoresHeading}>Your Scores</h3>
                 {scoreEntries.map(([metric, value]) => (
@@ -38,7 +44,6 @@ const Results: React.FC<ResultsProps> = ({ result }) => {
                 ))}
             </section>
 
-            {/* Book Recommendation */}
             <section className={styles.recommendationSection}>
                 <h3 className={styles.recommendationHeading}>Recommended Book</h3>
                 <div className={styles.recommendationCard}>
