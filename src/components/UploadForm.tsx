@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { mockAnalyzeBookshelf, pingBackend } from '../services/api';
+import PhotoUpload from './PhotoUpload';
 import type { BookshelfAnalysis } from '../services/types';
 
 const loadingPhrases = [
@@ -16,6 +17,7 @@ const UploadForm: React.FC<{ onComplete?: (result: BookshelfAnalysis) => void }>
     const [phrase, setPhrase] = useState<string>(loadingPhrases[0]);
     const [result, setResult] = useState<BookshelfAnalysis | null>(null);
     const [readyToView, setReadyToView] = useState(false);
+    const [file, setFile] = useState<File | null>(null);
 
     // Ping backend once (console only)
     useEffect(() => {
@@ -23,6 +25,7 @@ const UploadForm: React.FC<{ onComplete?: (result: BookshelfAnalysis) => void }>
     }, []);
 
     const handleAnalyzeClick = async () => {
+        if (!file) return alert("Please upload a photo first.");
         setLoading(true);
 
         let phraseIndex = 0;
@@ -97,14 +100,18 @@ const UploadForm: React.FC<{ onComplete?: (result: BookshelfAnalysis) => void }>
 
     // Initial state
     return (
-        <div style={{ padding: '64px 32px', textAlign: 'center' }}>
+        <div style={{ padding: '32px', textAlign: 'center' }}>
+            <PhotoUpload onFileSelected={setFile} />
             <button
                 onClick={handleAnalyzeClick}
                 style={{
                     padding: '12px 24px',
-                    fontSize: '16px',
+                    marginTop: '16px',
                     fontWeight: 'bold',
-                    cursor: 'pointer',
+                    backgroundColor: '#8b5cf6',
+                    color: 'white',
+                    borderRadius: '12px',
+                    cursor: 'pointer'
                 }}
             >
                 Analyze My Bookshelf
