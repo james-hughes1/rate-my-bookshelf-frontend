@@ -1,4 +1,4 @@
-import type { BookshelfResult } from './types';
+import type { BookshelfAnalysis } from './types';
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bookshelf-app-backend-457537281629.europe-west1.run.app';
@@ -19,40 +19,32 @@ export const pingBackend = async (): Promise<boolean> => {
  * Mock function that simulates the backend /process endpoint.
  * Returns the same JSON structure as your real backend.
  */
-export const mockAnalyzeBookshelf = async (): Promise<BookshelfResult> => {
+export const mockAnalyzeBookshelf = async (): Promise<BookshelfAnalysis> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
                 books: [
                     {
+                        idx: 0,
                         title: "1984",
                         author: "George Orwell",
-                        cover_url: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
-                        link: "https://www.goodreads.com/book/show/5470.1984",
-                        description: "A dystopian novel about totalitarianism."
+                        confidence: 0.98,
                     },
                     {
+                        idx: 1,
                         title: "Pride and Prejudice",
-                        author: "Jane Austen",
-                        cover_url: "https://covers.openlibrary.org/b/id/8091016-L.jpg",
-                        link: "https://www.goodreads.com/book/show/1885.Pride_and_Prejudice",
-                        description: "Classic romance and social commentary."
+                        author: "Author Unknown",
+                        confidence: 0.7,
                     }
                 ],
                 recommendation: {
-                    book: {
-                        title: "Brave New World",
-                        author: "Aldous Huxley",
-                        cover_url: "https://covers.openlibrary.org/b/id/8776111-L.jpg",
-                        link: "https://www.goodreads.com/book/show/5129.Brave_New_World",
-                        description: "A futuristic dystopian novel about society and control."
-                    },
+                    recommended_book: "Brave New World",
                     explanation: "Because your bookshelf suggests a love of classic dystopian literature."
                 },
                 three_words: {
-                    word_one: "adventurous",
-                    word_two: "classic",
-                    word_three: "thoughtful"
+                    word_one: "Adventurous",
+                    word_two: "Classic",
+                    word_three: "Thoughtful"
                 },
                 scores: {
                     age: 0.5,

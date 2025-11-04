@@ -1,18 +1,35 @@
-interface Scores {
-    [metric: string]: number; // e.g., "classic_to_modern": 0.8
-}
-interface Recommendation {
+interface BookInfo {
+    idx: number;
     title: string;
     author: string;
-    cover_url: string;
-    link: string; // link to buy or explore
-    description?: string;
+    confidence: number;
 }
 
-interface BookshelfResult {
-    taste_words: string[];   // e.g., ["adventurous", "classic", "philosophical"]
-    scores: Scores;
+interface Recommendation {
+    recommended_book: string;
+    explanation: string;
+}
+
+interface Scores {
+    age: number;
+    intensity: number;
+    mood: number;
+    popularity: number;
+    focus: number;
+    realism: number;
+}
+
+interface Threewords {
+    word_one: string;
+    word_two: string;
+    word_three: string;
+}
+
+interface BookshelfAnalysis {
+    books: BookInfo[];
     recommendation: Recommendation;
+    three_words: Threewords;
+    scores: Scores;
 }
 
-export type { BookshelfResult, Scores, Recommendation };
+export type { BookshelfAnalysis, Scores, Recommendation, Threewords };

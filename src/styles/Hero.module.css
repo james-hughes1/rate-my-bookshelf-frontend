@@ -1,0 +1,39 @@
+/* Hero.module.css */
+
+.heroSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #8b5cf6, #ec4899);
+    color: white;
+    text-align: center;
+    padding: 32px;
+}
+
+.heroTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.heroSubtitle {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+}
+
+.heroButton {
+    background-color: white;
+    color: #8b5cf6;
+    font-weight: bold;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.heroButton:hover {
+    transform: scale(1.05);
+}

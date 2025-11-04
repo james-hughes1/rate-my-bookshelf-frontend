@@ -2,11 +2,11 @@
 import React, { useRef, useState } from 'react';
 import Hero from '../components/Hero';
 import UploadForm from '../components/UploadForm';
-import type { BookshelfResult } from '../services/types';
+import type { BookshelfAnalysis } from '../services/types';
 
 const Home: React.FC = () => {
     const uploadRef = useRef<HTMLDivElement>(null);
-    const [result, setResult] = useState<BookshelfResult | null>(null);
+    const [result, setResult] = useState<BookshelfAnalysis | null>(null);
 
     const scrollToUpload = () => {
         if (uploadRef.current) {

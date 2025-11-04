@@ -1,0 +1,116 @@
+/* Results.module.css */
+
+.container {
+    padding: 24px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Taste Words */
+.tasteWordsSection {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.tasteWordsHeading {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.wordContainer {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.word {
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background-color: #f0f0f0;
+}
+
+/* Scores */
+.scoresSection {
+    margin-bottom: 32px;
+}
+
+.scoresHeading {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.scoreItem {
+    margin-bottom: 8px;
+}
+
+.scoreLabel {
+    text-transform: capitalize;
+}
+
+.scoreBarBackground {
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.scoreBarFill {
+    height: 100%;
+    background-color: #8b5cf6;
+    transition: width 0.5s ease;
+}
+
+/* Recommendation Card */
+.recommendationSection {
+    text-align: center;
+}
+
+.recommendationHeading {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.recommendationCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background-color: #fafafa;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.recommendationImage {
+    width: 150px;
+    border-radius: 8px;
+}
+
+.recommendationTitle {
+    margin: 0;
+}
+
+.recommendationAuthor {
+    margin: 4px 0;
+    font-style: italic;
+}
+
+.recommendationDescription {
+    text-align: center;
+    max-width: 400px;
+}
+
+.exploreButton {
+    margin-top: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: #8b5cf6;
+    color: #fff;
+    text-decoration: none;
+}
