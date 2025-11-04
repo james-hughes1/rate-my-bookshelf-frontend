@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { pingBackend } from '../services/api';
+import { useBookshelf } from '../context/BookshelfContext'
 import PhotoUpload from './PhotoUpload';
 import '../styles/UploadForm.css';
 
@@ -13,8 +14,10 @@ const UploadForm: React.FC = () => {
         );
     }, []);
 
-    const handleAnalyze = async (file: File) => {
-        navigate('/loading', { state: { file } }); // optional, pass file if needed
+    const { setFile } = useBookshelf();
+    const handleAnalyze = (file: File) => {
+        setFile(file);
+        navigate('/loading');
     };
 
     return <PhotoUpload onFileSelected={() => { }} onAnalyze={handleAnalyze} />;
