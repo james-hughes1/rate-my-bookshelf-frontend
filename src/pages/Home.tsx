@@ -3,19 +3,19 @@ import Hero from '../components/Hero';
 import UploadForm from '../components/UploadForm';
 import NavIcon from '../components/NavIcon';
 import AboutPanel from '../components/AboutPanel';
-import InstagramResults from '../components/Results';
+import Results from '../components/Results';
 import type { BookshelfAnalysis } from '../services/types';
 
 const Home: React.FC = () => {
     const [aboutVisible, setAboutVisible] = useState(false);
-    const [instagramResult, setInstagramResult] = useState<BookshelfAnalysis | null>(null);
+    const [result, setResult] = useState<BookshelfAnalysis | null>(null);
 
-    if (instagramResult) {
+    if (result) {
         return (
             <>
                 <NavIcon onClick={() => setAboutVisible(true)} />
                 <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
-                <InstagramResults result={instagramResult} />
+                <Results result={result} />
             </>
         );
     }
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
                 }}
             />
             <div id="uploadSection">
-                <UploadForm onComplete={(res) => setInstagramResult(res)} />
+                <UploadForm onComplete={(res) => setResult(res)} />
             </div>
         </div>
     );
