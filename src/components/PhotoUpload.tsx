@@ -34,7 +34,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ onFileSelected, onAnalyze }) 
             <div className={styles.textSection}>
                 <h2 className={styles.title}>Take a photo of your bookshelf</h2>
                 <p className={styles.subtitle}>
-                    Upload or capture an image of your bookshelf below. Our AI will analyze your reading taste and give you a personalized recommendation.
+                    Upload or capture an image of your bookshelf below. Try to ensure your bookshelf image is well-lit, clear, and captures the bookshelf straight-on.
                 </p>
             </div>
 

@@ -37,7 +37,7 @@ const LoadingScreen: React.FC = () => {
                 setFinished(true);
             } catch (err) {
                 console.error(err);
-                setError('Failed to analyze bookshelf. Please try again.');
+                setError('Failed to analyze bookshelf. Please try again - make sure you take a clear, well-lit image.');
             } finally {
                 clearInterval(phraseInterval); // stop phrases only when API finishes
             }
