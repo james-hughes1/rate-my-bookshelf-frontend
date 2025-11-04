@@ -3,12 +3,18 @@ export const loadingPhrases = [
     "Dotting the I's and crossing the T's...",
     "Sweeping the shelves...",
     "Assessing the vibes...",
-    "Checking the spine alignment...",
     "Organizing your literary aura...",
     "Summoning the spirit of Virginia Woolf...",
     "Dusting off the paperbacks...",
     "Finding Waldo in your collection...",
-    "Consulting the Dewey Decimal gods..."
+    "Applying the Dewey Decimal System...",
+    "Jesting infinitely...",
+    "Whacking the kettle on...",
+    "Folding the page corners...",
+    "Lighting a candle...",
+    "Putting on reading glasses...",
+    "Explaining to Watson...",
+    ""
 ];
 
 // Shuffle function to randomize the order

@@ -4,7 +4,7 @@ import Hero from '../components/Hero';
 import UploadForm from '../components/UploadForm';
 import NavIcon from '../components/NavIcon';
 import AboutPanel from '../components/AboutPanel';
-import Results from '../components/Results';
+import Results from '../pages/ResultsPage';
 import type { BookshelfAnalysis } from '../services/types';
 
 const Home: React.FC = () => {

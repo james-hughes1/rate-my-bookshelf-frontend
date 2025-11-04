@@ -1,14 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { BookshelfAnalysis } from '../services/types';
 import styles from '../styles/Results.module.css';
 
-interface ResultsProps {
+// ScoreBar Component
+interface ScoreBarProps {
+    value: number; // -1 to 1
+    leftLabel: string;
+    rightLabel: string;
+}
+
+const ScoreBar: React.FC<ScoreBarProps> = ({ value, leftLabel, rightLabel }) => {
+    // Fill width is always positive percentage
+    const fillWidth = `${Math.abs(value) * 50}%`;
+
+    // If value >=0, fill starts at 50% (center), else start at center - width
+    const fillLeft = '50%';
+    const fillTransform = value < 0 ? `translateX(-${fillWidth})` : 'none';
+
+    return (
+        <div className={styles.scoreBarContainer}>
+            <div className={styles.barLabelLeft}>{leftLabel}</div>
+            <div className={styles.barBackground}>
+                <div
+                    className={styles.barFill}
+                    style={{
+                        width: fillWidth,
+                        left: fillLeft,
+                        transform: fillTransform,
+                    }}
+                />
+                <div className={styles.centerLine} />
+            </div>
+            <div className={styles.barLabelRight}>{rightLabel}</div>
+        </div>
+    );
+};
+
+// Main ResultsPage Component
+interface ResultsPageProps {
     result: BookshelfAnalysis;
 }
 
-const resultsPage: React.FC<ResultsProps> = ({ result }) => {
+const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
     const { three_words, scores, recommendation } = result;
     const scoreEntries = Object.entries(scores);
+
+    const [showModal, setShowModal] = useState(false);
 
     // Lock scrolling
     useEffect(() => {
@@ -18,8 +55,19 @@ const resultsPage: React.FC<ResultsProps> = ({ result }) => {
         };
     }, []);
 
+    // Axis labels
+    const axisLabels: Record<string, [string, string]> = {
+        age: ['Classic', 'Modern'],
+        intensity: ['Beach', 'Intense'],
+        mood: ['Dystopian', 'Light'],
+        popularity: ['Esoteric', 'Well-known'],
+        focus: ['Plot', 'Character'],
+        realism: ['Down-to-earth', 'Imaginary'],
+    };
+
     return (
         <div className={styles.container}>
+            {/* Taste Words */}
             <section className={styles.tasteWordsSection}>
                 <h2 className={styles.tasteWordsHeading}>Your Literary Taste</h2>
                 <div className={styles.wordContainer}>
@@ -29,30 +77,39 @@ const resultsPage: React.FC<ResultsProps> = ({ result }) => {
                 </div>
             </section>
 
+            {/* Score Bars */}
             <section className={styles.scoresSection}>
-                <h3 className={styles.scoresHeading}>Your Scores</h3>
                 {scoreEntries.map(([metric, value]) => (
-                    <div key={metric} className={styles.scoreItem}>
-                        <span className={styles.scoreLabel}>{metric.replace('_', ' ')}:</span>
-                        <div className={styles.scoreBarBackground}>
-                            <div
-                                className={styles.scoreBarFill}
-                                style={{ width: `${((value + 1) / 2) * 100}%` }}
-                            />
-                        </div>
-                    </div>
+                    <ScoreBar
+                        key={metric}
+                        value={value}
+                        leftLabel={axisLabels[metric][0]}
+                        rightLabel={axisLabels[metric][1]}
+                    />
                 ))}
             </section>
 
+            {/* Recommended Book */}
             <section className={styles.recommendationSection}>
-                <h3 className={styles.recommendationHeading}>Recommended Book</h3>
-                <div className={styles.recommendationCard}>
-                    <h4 className={styles.recommendationTitle}>{recommendation.recommended_book}</h4>
-                    <p className={styles.recommendationAuthor}>{recommendation.explanation}</p>
+                <div className={styles.recommendationCard} onClick={() => setShowModal(true)}>
+                    <h4 className={styles.recommendationTitle}>
+                        Recommended Book: {recommendation.recommended_book}
+                    </h4>
+                    <span className={styles.infoCircle}>i</span>
                 </div>
+
+                {showModal && (
+                    <div className={styles.modalOverlay}>
+                        <div className={styles.modalContent}>
+                            <button className={styles.closeButton} onClick={() => setShowModal(false)}>✕</button>
+                            <h3>{recommendation.recommended_book}</h3>
+                            <p>{recommendation.explanation}</p>
+                        </div>
+                    </div>
+                )}
             </section>
         </div>
     );
 };
 
-export default resultsPage;
+export default ResultsPage;

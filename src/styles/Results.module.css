@@ -1,120 +1,196 @@
 .container {
-    min-height: 100vh;
+    height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    background: linear-gradient(to bottom right, #fbc2eb, #a18cd1);
-    padding: 24px;
+    padding: 16px;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom right, #ffb049, #c224fc);
 }
 
-/* Taste Words */
+/* Three Words Section */
 .tasteWordsSection {
     text-align: center;
-    margin-bottom: 32px;
 }
 
 .tasteWordsHeading {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    margin-bottom: 16px;
+    color: white;
 }
 
 .wordContainer {
     display: flex;
+    gap: 12px;
     justify-content: center;
-    gap: 16px;
-    margin-top: 16px;
 }
 
 .word {
-    font-size: 1.5rem;
-    font-weight: 600;
+    background-color: #8b5cf6;
     padding: 8px 16px;
-    border-radius: 16px;
-    background-color: #ffffffcc;
+    border-radius: 12px;
+    font-weight: 600;
+    color: white;
 }
 
 /* Scores */
 .scoresSection {
-    margin-bottom: 32px;
     width: 100%;
+    max-width: 600px;
+    /* make sure it's wide */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.scoresHeading {
-    font-size: 1.5rem;
+/* Score container */
+.scoreBarContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin-bottom: 16px;
+    /* consistent spacing between bars */
 }
 
-.scoreItem {
-    margin-bottom: 12px;
+/* Labels */
+.barLabelLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    /* FIXED width for all labels */
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #c224fc;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.scoreLabel {
-    text-transform: capitalize;
+.barLabelRight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    /* FIXED width for all labels */
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background-color: #ffb049;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
 }
 
-.scoreBarBackground {
+/* Bar background */
+.barBackground {
+    flex: 1;
     height: 12px;
-    background-color: #e0e0e0;
+    background: #e0e0e0;
     border-radius: 6px;
-    overflow: hidden;
-    margin-top: 4px;
+    position: relative;
 }
 
-.scoreBarFill {
+/* Bar fill */
+.barFill {
+    position: absolute;
     height: 100%;
-    background-color: #8b5cf6;
-    transition: width 0.7s ease;
+    background-color: #8c1d46;
+    border-radius: 6px;
 }
 
-/* Book Recommendation */
+/* Center line */
+.centerLine {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #00000033;
+    transform: translateX(-50%);
+}
+
+/* Recommended Book */
 .recommendationSection {
     text-align: center;
 }
 
-.recommendationHeading {
-    font-size: 1.5rem;
-    margin-bottom: 16px;
-}
-
 .recommendationCard {
-    display: flex;
-    flex-direction: column;
+    padding: 16px 24px;
+    border-radius: 16px;
+    background-color: #fafafa;
+    display: inline-flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px;
-    border-radius: 24px;
-    background-color: white;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+    /* ensure modal overlay sits above */
 }
 
-.recommendationImage {
-    width: 150px;
-    border-radius: 12px;
-}
 
 .recommendationTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
     margin: 0;
 }
 
-.recommendationAuthor {
-    margin: 4px 0;
-    font-style: italic;
-}
-
-.recommendationDescription {
-    text-align: center;
-    max-width: 380px;
-}
-
-.exploreButton {
-    margin-top: 8px;
-    padding: 8px 16px;
-    border-radius: 12px;
-    background-color: #8b5cf6;
-    color: #fff;
-    text-decoration: none;
+.infoCircle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    /* blue circle */
+    color: white;
     font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Modal */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    /* smaller width */
+    width: 90%;
+    max-height: 60%;
+    /* smaller height */
+    text-align: center;
+    /* center text */
+    overflow-y: auto;
+    position: relative;
+}
+
+.closeButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
