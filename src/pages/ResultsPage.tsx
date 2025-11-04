@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import type { BookshelfAnalysis } from '../services/types';
 import styles from '../styles/Results.module.css';
 
@@ -35,10 +36,15 @@ const ScoreBar: React.FC<ScoreBarProps> = ({ value, leftLabel, rightLabel }) => 
 
 // Main ResultsPage Component
 interface ResultsPageProps {
-    result: BookshelfAnalysis;
+    result: BookshelfAnalysis | null; // allow null
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
+    // Redirect if no result
+    if (!result) {
+        return <Navigate to="/" replace />;
+    }
+
     const { three_words, scores, recommendation } = result;
     const scoreEntries = Object.entries(scores);
 
