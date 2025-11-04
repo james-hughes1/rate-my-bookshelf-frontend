@@ -1,0 +1,13 @@
+.navIcon {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.2s ease;
+}
+
+.navIcon:hover {
+    transform: rotate(20deg) scale(1.1);
+}
