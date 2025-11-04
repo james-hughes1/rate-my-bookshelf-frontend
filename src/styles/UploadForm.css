@@ -5,34 +5,19 @@
 }
 
 .loading-container {
-    padding: 64px 32px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    gap: 24px;
 }
 
 .loading-text {
     font-size: 1.5rem;
     margin-bottom: 16px;
     color: white;
-}
-
-.spinner {
-    display: inline-block;
-    border: 4px solid #8b5cf6;
-    border-top: 4px solid transparent;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .ready-container {
@@ -60,4 +45,40 @@
 .primary-button:hover {
     transform: scale(1.05);
     opacity: 0.95;
+}
+
+.bookshelf-icon {
+    width: 120px;
+    height: 120px;
+    color: #ffffff;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        color: #ffffff;
+    }
+
+    50% {
+        transform: scale(1.2);
+        color: #cccccc;
+    }
+
+    100% {
+        transform: scale(1);
+        color: #ffffff;
+    }
+}
+
+.finished-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.finished-text {
+    font-size: 1.5rem;
+    font-weight: 600;
 }
