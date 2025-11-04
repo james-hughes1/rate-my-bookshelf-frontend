@@ -1,0 +1,41 @@
+.scoreBarContainer {
+    margin-bottom: 16px;
+}
+
+.labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.barBackground {
+    position: relative;
+    height: 12px;
+    width: 100%;
+    background-color: #f3c3ff;
+    border-radius: 6px;
+}
+
+.midline {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #999999;
+    /* grey-ish */
+    transform: translateX(-50%);
+}
+
+.scoreIndicator {
+    position: absolute;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: #851c1c;
+    /* colored diamond */
+    transform: translate(-50%, -50%) rotate(45deg);
+    /* center & rotate */
+    border-radius: 2px;
+}

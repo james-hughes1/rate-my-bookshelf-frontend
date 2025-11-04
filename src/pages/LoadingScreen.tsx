@@ -1,7 +1,7 @@
 import { BookOpen } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { getRandomizedPhrases } from '../data/loadingPhrases';
-import { mockAnalyzeBookshelf } from '../services/api';
+import { analyzeBookshelf } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useBookshelf } from '../context/BookshelfContext';
 import '../styles/UploadForm.css';
@@ -10,10 +10,18 @@ import '../styles/index.css';
 const LoadingScreen: React.FC = () => {
     const [phrase, setPhrase] = useState('Cooking the books...');
     const [finished, setFinished] = useState(false);
-    const { setResult } = useBookshelf();
+    const [error, setError] = useState<string | null>(null);
+
+    const { file, setResult } = useBookshelf();
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!file) {
+            // No file uploaded, redirect to home
+            navigate('/');
+            return;
+        }
+
         const randomized = getRandomizedPhrases();
         let index = 0;
         setPhrase(randomized[index]);
@@ -23,20 +31,41 @@ const LoadingScreen: React.FC = () => {
             setPhrase(randomized[index]);
         }, 1500);
 
-        const timeout = setTimeout(async () => {
+        const analyze = async () => {
+            try {
+                const data = await analyzeBookshelf(file);
+                setResult(data);
+                setFinished(true);
+            } catch (err) {
+                console.error(err);
+                setError('Failed to analyze bookshelf. Please try again.');
+            }
+        };
+
+        // Simulate loading for 1–2 seconds minimum if needed
+        const timeout = setTimeout(() => {
             clearInterval(phraseInterval);
-            const data = await mockAnalyzeBookshelf(); // real API call later
-            setResult(data);
-            setFinished(true);
-        }, 10000);
+            analyze();
+        }, 1000);
 
         return () => {
             clearInterval(phraseInterval);
             clearTimeout(timeout);
         };
-    }, [setResult]);
+    }, [file, navigate, setResult]);
 
     const handleSeeResults = () => navigate('/results');
+
+    if (error) {
+        return (
+            <div className="loading-container">
+                <p className="loading-text">{error}</p>
+                <button className="primary-button" onClick={() => navigate('/')}>
+                    Go Back
+                </button>
+            </div>
+        );
+    }
 
     return (
         <div className="loading-container">

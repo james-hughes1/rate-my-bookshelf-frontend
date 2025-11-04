@@ -1,32 +1,31 @@
-import styles from '../styles/Results.module.css';
+import React from 'react';
+import styles from '../styles/ScoreBar.module.css';
 
-// ScoreBar Component
 interface ScoreBarProps {
-    value: number; // -1 to 1
+    value: number; // [-1, 1]
     leftLabel: string;
     rightLabel: string;
 }
 
 const ScoreBar: React.FC<ScoreBarProps> = ({ value, leftLabel, rightLabel }) => {
-    const fillWidth = `${Math.abs(value) * 50}%`;
-    const fillLeft = '50%';
-    const fillTransform = value < 0 ? `translateX(-${fillWidth})` : 'none';
+    const clamped = Math.max(-1, Math.min(1, value));
+    const positionPercent = ((clamped + 1) / 2) * 100; // maps [-1,1] → [0,100]%
 
     return (
         <div className={styles.scoreBarContainer}>
-            <div className={styles.barLabelLeft}>{leftLabel}</div>
-            <div className={styles.barBackground}>
-                <div
-                    className={styles.barFill}
-                    style={{
-                        width: fillWidth,
-                        left: fillLeft,
-                        transform: fillTransform,
-                    }}
-                />
-                <div className={styles.centerLine} />
+            <div className={styles.labels}>
+                <span>{leftLabel}</span>
+                <span>{rightLabel}</span>
             </div>
-            <div className={styles.barLabelRight}>{rightLabel}</div>
+            <div className={styles.barBackground}>
+                {/* Midline at 50% */}
+                <div className={styles.midline}></div>
+                {/* Score indicator as a diamond */}
+                <div
+                    className={styles.scoreIndicator}
+                    style={{ left: `${positionPercent}%` }}
+                />
+            </div>
         </div>
     );
 };
