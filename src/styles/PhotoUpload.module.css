@@ -1,0 +1,134 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    background-color: #fafafa;
+    text-align: center;
+}
+
+.textSection {
+    margin-bottom: 32px;
+    max-width: 600px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.uploadArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.uploadPlaceholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 2px dashed #8b5cf6;
+    border-radius: 16px;
+    color: #8b5cf6;
+    background-color: #f9f9ff;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.uploadPlaceholder:hover {
+    background-color: #f3e8ff;
+}
+
+.placeholderIcon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+}
+
+.placeholderText {
+    font-weight: 600;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.imageWrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.previewImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.buttonRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.changeBtn,
+.rotateBtn {
+    background-color: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.changeBtn:hover,
+.rotateBtn:hover {
+    transform: scale(1.05);
+    background-color: #7c3aed;
+}
+
+.analyzeBtn {
+    background-color: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 26px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 12px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.analyzeBtn:hover {
+    transform: scale(1.05);
+    background-color: #7c3aed;
+}
