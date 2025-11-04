@@ -26,6 +26,7 @@
 .heroButton {
     background-color: white;
     color: #000000;
+    font-family: 'Georgia', serif;
     font-weight: bold;
     padding: 12px 24px;
     border: none;

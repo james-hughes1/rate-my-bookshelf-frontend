@@ -1,61 +1,23 @@
 import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useBookshelf } from '../context/BookshelfContext';
+import { useNavigate } from 'react-router-dom';
 import type { BookshelfAnalysis } from '../services/types';
 import styles from '../styles/Results.module.css';
+import ScoreBar from '../components/ScoreBar';
 
-// ScoreBar Component
-interface ScoreBarProps {
-    value: number; // -1 to 1
-    leftLabel: string;
-    rightLabel: string;
-}
+const ResultsPage: React.FC = () => {
+    const { result } = useBookshelf();
+    const navigate = useNavigate();
 
-const ScoreBar: React.FC<ScoreBarProps> = ({ value, leftLabel, rightLabel }) => {
-    const fillWidth = `${Math.abs(value) * 50}%`;
-    const fillLeft = '50%';
-    const fillTransform = value < 0 ? `translateX(-${fillWidth})` : 'none';
+    useEffect(() => {
+        if (!result) navigate('/'); // redirect if no data
+        else document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = 'auto'; };
+    }, [result, navigate]);
 
-    return (
-        <div className={styles.scoreBarContainer}>
-            <div className={styles.barLabelLeft}>{leftLabel}</div>
-            <div className={styles.barBackground}>
-                <div
-                    className={styles.barFill}
-                    style={{
-                        width: fillWidth,
-                        left: fillLeft,
-                        transform: fillTransform,
-                    }}
-                />
-                <div className={styles.centerLine} />
-            </div>
-            <div className={styles.barLabelRight}>{rightLabel}</div>
-        </div>
-    );
-};
-
-// Main ResultsPage Component
-interface ResultsPageProps {
-    result: BookshelfAnalysis | null; // allow null
-}
-
-const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
-    // Redirect if no result
-    if (!result) {
-        return <Navigate to="/" replace />;
-    }
+    if (!result) return null;
 
     const { three_words, scores, recommendation } = result;
-    const scoreEntries = Object.entries(scores);
-
-    // Lock scrolling
-    useEffect(() => {
-        document.body.style.overflow = 'hidden';
-        return () => {
-            document.body.style.overflow = 'auto';
-        };
-    }, []);
-
     const axisLabels: Record<string, [string, string]> = {
         age: ['Classic', 'Modern'],
         intensity: ['Beach Reads', 'Intense Study'],
@@ -67,10 +29,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
 
     return (
         <div className={styles.container}>
-            {/* Header */}
             <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
-
-            {/* Three Words */}
             <section className={styles.tasteWordsSection}>
                 <h2 className={styles.tasteWordsHeading}>
                     Your collection summed up in three words
@@ -82,12 +41,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
                 </div>
             </section>
 
-            {/* Score Bars */}
             <section className={styles.scoresSection}>
                 <h2 className={styles.scoresHeading}>
                     How your taste in literature stacks up against everybody else's
                 </h2>
-                {scoreEntries.map(([metric, value]) => (
+                {Object.entries(scores).map(([metric, value]) => (
                     <ScoreBar
                         key={metric}
                         value={value}
@@ -97,7 +55,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ result }) => {
                 ))}
             </section>
 
-            {/* Recommendation */}
             <section className={styles.recommendationSection}>
                 <div className={styles.recommendationCard}>
                     <p className={styles.recommendationLabel}>Recommended Book:</p>

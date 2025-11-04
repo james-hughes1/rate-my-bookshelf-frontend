@@ -1,20 +1,16 @@
 import { BookOpen } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import '../styles/UploadForm.css';
-import '../styles/index.css';
 import { getRandomizedPhrases } from '../data/loadingPhrases';
 import { mockAnalyzeBookshelf } from '../services/api';
-import type { BookshelfAnalysis } from '../services/types';
 import { useNavigate } from 'react-router-dom';
+import { useBookshelf } from '../context/BookshelfContext';
+import '../styles/UploadForm.css';
+import '../styles/index.css';
 
-interface LoadingScreenProps {
-    onComplete: (result: BookshelfAnalysis) => void;
-}
-
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
-    const [phrase, setPhrase] = useState<string>('Cooking the books...');
+const LoadingScreen: React.FC = () => {
+    const [phrase, setPhrase] = useState('Cooking the books...');
     const [finished, setFinished] = useState(false);
-    const [result, setResult] = useState<BookshelfAnalysis | null>(null);
+    const { setResult } = useBookshelf();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +25,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
 
         const timeout = setTimeout(async () => {
             clearInterval(phraseInterval);
-            const data = await mockAnalyzeBookshelf(); // Replace with real backend call later
+            const data = await mockAnalyzeBookshelf(); // real API call later
             setResult(data);
             setFinished(true);
         }, 10000);
@@ -38,11 +34,9 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
             clearInterval(phraseInterval);
             clearTimeout(timeout);
         };
-    }, []);
+    }, [setResult]);
 
-    const handleSeeResults = () => {
-        if (result) onComplete(result);
-    };
+    const handleSeeResults = () => navigate('/results');
 
     return (
         <div className="loading-container">

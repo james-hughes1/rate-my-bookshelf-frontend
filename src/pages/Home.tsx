@@ -1,42 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/index.css';
 import Hero from '../components/Hero';
 import UploadForm from '../components/UploadForm';
 import NavIcon from '../components/NavIcon';
 import AboutPanel from '../components/AboutPanel';
-import Results from '../pages/ResultsPage';
-import type { BookshelfAnalysis } from '../services/types';
 
 const Home: React.FC = () => {
-    const [aboutVisible, setAboutVisible] = useState(false);
-    const [result, setResult] = useState<BookshelfAnalysis | null>(null);
-
-    if (result) {
-        return (
-            <>
-                <NavIcon onClick={() => setAboutVisible(true)} />
-                <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
-                <Results result={result} />
-            </>
-        );
-    }
+    const [aboutVisible, setAboutVisible] = React.useState(false);
 
     return (
         <div>
             <NavIcon onClick={() => setAboutVisible(true)} />
             <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
-            <Hero
-                onScrollToUpload={() => {
-                    const uploadSection = document.getElementById('uploadSection');
-                    if (uploadSection) {
-                        const yOffset = -16; // tweak this to push it further up
-                        const y = uploadSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                        window.scrollTo({ top: y, behavior: 'smooth' });
-                    }
-                }}
-            />
+            <Hero onScrollToUpload={() => {
+                const uploadSection = document.getElementById('uploadSection');
+                if (uploadSection) {
+                    const yOffset = -16;
+                    const y = uploadSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            }} />
             <div id="uploadSection">
-                <UploadForm onComplete={(res) => setResult(res)} />
+                <UploadForm />
             </div>
         </div>
     );
