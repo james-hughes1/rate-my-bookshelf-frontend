@@ -11,9 +11,17 @@ const ResultsPage: React.FC = () => {
 
     useEffect(() => {
         if (!result) navigate('/');
-        else document.body.style.overflow = 'hidden';
-        return () => { document.body.style.overflow = 'auto'; };
     }, [result, navigate]);
+
+    // Add a separate effect for the modal
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => { document.body.style.overflow = 'auto'; };
+    }, [isModalOpen]);
 
     if (!result) return null;
 
