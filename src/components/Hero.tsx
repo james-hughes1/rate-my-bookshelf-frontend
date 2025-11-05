@@ -8,9 +8,9 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ onScrollToUpload }) => {
     return (
         <section className={styles.heroSection}>
-            <h1 className={styles.heroTitle}>Discover Your Literary Taste</h1>
+            <h1 className={styles.heroTitle}>Analyse your book collection</h1>
             <p className={styles.heroSubtitle}>
-                Upload a photo of your bookshelf and get a personalized book recommendation.
+                Upload a photo of your bookshelf and get a personalised book recommendation.
             </p>
             <button className={styles.heroButton} onClick={onScrollToUpload}>
                 Get Started

@@ -82,7 +82,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ onFileSelected, onAnalyze }) 
                         </button>
 
                         <button type="button" className={styles.analyzeBtn} onClick={handleAnalyzeClick}>
-                            Analyze My Bookshelf
+                            Analyse My Bookshelf
                         </button>
                     </div>
                 )}
