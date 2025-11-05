@@ -43,7 +43,7 @@ const ResultsPage: React.FC = () => {
             <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
 
             <section className={styles.tasteWordsSection}>
-                <h2 className={styles.tasteWordsHeading}>Your collection summed up in three words</h2>
+                <h2 className={styles.tasteWordsHeading}>In three words...</h2>
                 <div className={styles.wordContainer}>
                     {[three_words.word_one, three_words.word_two, three_words.word_three].map(word => (
                         <span key={word} className={styles.word}>{word}</span>
@@ -52,7 +52,7 @@ const ResultsPage: React.FC = () => {
             </section>
 
             <section className={styles.scoresSection}>
-                <h2 className={styles.scoresHeading}>How your taste in literature stacks up against everybody else's</h2>
+                <h2 className={styles.scoresHeading}>Your preferences:</h2>
                 {Object.entries(scores).map(([metric, value]) => (
                     <ScoreBar
                         key={metric}
@@ -73,12 +73,12 @@ const ResultsPage: React.FC = () => {
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsModalOpen(true); }}
                 >
                     {/* Info icon first */}
-                    <div className={styles.infoIcon}>i</div>
                     <p className={styles.recommendationLabel}>
                         Recommended Book:
                         <h3 className={styles.recommendationTitle}>
                             {recommendation.recommended_book}
                         </h3>
+                        Click to learn more
                     </p>
                 </div>
             </section>
