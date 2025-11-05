@@ -1,16 +1,19 @@
 .container {
-    height: 100vh;
+    min-height: 100vh;
+    /* ensure it always fills viewport */
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    /* more even spacing */
+    justify-content: flex-start;
+    /* let content flow naturally, scroll if needed */
     align-items: center;
     padding: 16px;
-    overflow: hidden;
+    overflow-y: auto;
+    /* allow scrolling on mobile if content is tall */
     box-sizing: border-box;
     background: linear-gradient(to bottom right, #ffb049, #c224fc);
 }
+
 
 .pageHeader {
     font-size: 2rem;
@@ -116,9 +119,13 @@
     border-radius: 16px;
     background-color: #ffd9c5;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    /* row instead of column */
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    /* wrap if too narrow */
 }
 
 .recommendationLabel {
@@ -143,4 +150,69 @@
     text-align: center;
     margin: 0;
     color: #333;
+}
+
+/* Info icon */
+.infoIcon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* Modal overlay */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+}
+
+/* Modal panel */
+.modalPanel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    max-width: 90%;
+    width: 320px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Modal title */
+.modalTitle {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+/* Modal description */
+.modalDescription {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* Modal close button */
+.modalCloseBtn {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
 }
