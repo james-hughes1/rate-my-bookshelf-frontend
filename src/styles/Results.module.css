@@ -25,13 +25,14 @@
 /* Three Words Section */
 .tasteWordsSection {
     text-align: center;
+    margin-bottom: 12px;
 }
 
 .tasteWordsHeading {
-    font-size: 1.4rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-bottom: 12px;
-    color: white;
+    color: black;
 }
 
 .wordContainer {
@@ -42,7 +43,7 @@
 
 .word {
     background-color: #851c1c;
-    padding: 8px 16px;
+    padding: 4px 16px;
     border-radius: 12px;
     font-weight: 600;
     color: white;
@@ -58,8 +59,8 @@
 }
 
 .scoresHeading {
-    color: white;
-    font-weight: bold;
+    color: black;
+    font-size: 1rem;
     text-align: center;
     margin-bottom: 8px;
 }
@@ -138,7 +139,7 @@
 
 .recommendationTitle {
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-align: center;
     margin: 4px 0;
     color: #1a202c;
