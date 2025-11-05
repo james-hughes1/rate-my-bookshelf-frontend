@@ -124,6 +124,7 @@
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
+    cursor: pointer;
     /* wrap if too narrow */
 }
 
@@ -162,7 +163,6 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    cursor: pointer;
     flex-shrink: 0;
 }
 

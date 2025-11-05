@@ -3,11 +3,14 @@ import { useBookshelf } from '../context/BookshelfContext';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Results.module.css';
 import ScoreBar from '../components/ScoreBar';
+import LearnMoreBar from '../components/LearnMoreBar';
+import AboutPanel from '../components/AboutPanel';
 
 const ResultsPage: React.FC = () => {
     const { result } = useBookshelf();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [aboutVisible, setAboutVisible] = React.useState(false);
 
     useEffect(() => {
         if (!result) navigate('/');
@@ -94,6 +97,8 @@ const ResultsPage: React.FC = () => {
                     </div>
                 </div>
             )}
+            <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
+            <LearnMoreBar setAboutVisible={setAboutVisible} />
         </div>
     );
 };

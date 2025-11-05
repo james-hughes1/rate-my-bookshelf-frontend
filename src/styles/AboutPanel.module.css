@@ -23,6 +23,40 @@
 }
 
 .closeButton {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    align-self: flex-end;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgb(71, 71, 71);
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+}
+
+.closeButton:hover {
+    background-color: #323232;
+    /* slightly darker on hover */
+    transform: translateY(-1px);
+    /* subtle lift effect */
+}
+
+.closeButton:active {
+    background-color: #151515;
+    /* slightly darker on hover */
+    transform: translateY(-1px);
+    /* subtle lift effect */
+}
+
+
+a.pill {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
     align-self: flex-end;
     padding: 8px 12px;
     border: none;
@@ -30,4 +64,17 @@
     background-color: #8b5cf6;
     color: #fff;
     cursor: pointer;
+}
+
+a.pill:hover {
+    background-color: #692cd4;
+    /* slightly darker on hover */
+    transform: translateY(-1px);
+    /* subtle lift effect */
+}
+
+a.pill:active {
+    background-color: #5822b0;
+    /* darker when clicked */
+    transform: translateY(0);
 }

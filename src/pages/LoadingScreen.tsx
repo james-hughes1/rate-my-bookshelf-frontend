@@ -1,7 +1,7 @@
 import { BookOpen } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { getRandomizedPhrases } from '../data/loadingPhrases';
-import { analyzeBookshelf } from '../services/api';
+import { mockAnalyzeBookshelf } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useBookshelf } from '../context/BookshelfContext';
 import '../styles/UploadForm.css';
@@ -32,7 +32,7 @@ const LoadingScreen: React.FC = () => {
 
         const analyze = async () => {
             try {
-                const data = await analyzeBookshelf(file);
+                const data = await mockAnalyzeBookshelf(file);
                 setResult(data);
                 setFinished(true);
             } catch (err) {
