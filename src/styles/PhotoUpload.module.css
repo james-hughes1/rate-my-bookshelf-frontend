@@ -132,3 +132,96 @@
     transform: scale(1.05);
     background-color: #d48a0b;
 }
+
+.libraryDescription {
+    width: 100%;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.descriptionInput {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s ease;
+    font-family: 'Georgia', serif;
+}
+
+.descriptionInput::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.descriptionInput:focus {
+    border-color: #f59e0b;
+    /* matches your analyze button */
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+.inputError {
+    border-color: #f59e0b;
+    /* bright orange */
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+    transition: all 0.2s ease;
+}
+
+/* Mode toggle container top left */
+.modeToggle {
+    position: absolute;
+    top: 24px;
+    left: 32px;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 4px;
+    width: 180px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    position: fixed;
+    /* stays visible while scrolling */
+}
+
+/* Individual option */
+.toggleOption {
+    flex: 1;
+    text-align: center;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 0;
+    border-radius: 24px;
+    transition: color 0.2s ease;
+}
+
+.toggleOption.active {
+    color: black;
+}
+
+/* Sliding swoosh background */
+.toggleSwoosh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #8b5cf6;
+    /* bright orange */
+    border-radius: 24px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
