@@ -1,4 +1,4 @@
-import { House, BookOpen } from 'lucide-react';
+import { House, ScanSearch } from 'lucide-react';
 import React, { useState } from 'react';
 import { RotateCw } from 'lucide-react';
 import styles from '../styles/PhotoUpload.module.css';
@@ -52,7 +52,7 @@ const PhotoUpload: React.FC = () => {
                     className={`${styles.toggleOption} ${mode === 'library' ? styles.active : ''}`}
                     onClick={() => setMode('library')}
                 >
-                    <BookOpen size={16} />
+                    <ScanSearch size={16} />
                     Library
                 </div>
                 <div

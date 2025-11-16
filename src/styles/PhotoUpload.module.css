@@ -173,11 +173,10 @@
     transition: all 0.2s ease;
 }
 
-/* Mode toggle container top left */
+/* Container (no fixed positioning) */
 .modeToggle {
-    position: absolute;
-    top: 24px;
-    left: 32px;
+    position: relative;
+    /* needed for the swoosh to be positioned inside */
     display: flex;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 24px;
@@ -190,15 +189,14 @@
     color: white;
     cursor: pointer;
     user-select: none;
-    position: fixed;
-    /* stays visible while scrolling */
+    margin: 1rem auto;
+    /* center horizontally and add spacing */
 }
 
 /* Individual option */
 .toggleOption {
     flex: 1;
     text-align: center;
-    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -206,6 +204,9 @@
     padding: 6px 0;
     border-radius: 24px;
     transition: color 0.2s ease;
+    position: relative;
+    /* ensure it stays above swoosh */
+    z-index: 2;
 }
 
 .toggleOption.active {
@@ -218,10 +219,11 @@
     top: 0;
     left: 0;
     width: 50%;
+    /* half the container width */
     height: 100%;
     background-color: #8b5cf6;
-    /* bright orange */
     border-radius: 24px;
     transition: transform 0.3s ease;
     z-index: 1;
+    /* behind the options */
 }
