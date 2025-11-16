@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bookshelf-app-backend-457537281629.europe-west1.run.app';
 
+console.log(API_BASE_URL)
+
 /**
  * Ping the backend to check connectivity.
  */
@@ -26,7 +28,7 @@ export const analyzeBookshelf = async (file: File): Promise<BookshelfAnalysis> =
 
     try {
         const response = await axios.post<BookshelfAnalysis>(
-            `${API_BASE_URL}/process`,
+            `${API_BASE_URL}/mybookshelf`,
             formData,
             {
                 headers: { 'Content-Type': 'multipart/form-data' },
