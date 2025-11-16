@@ -15,9 +15,7 @@ const Home: React.FC = () => {
             <Hero onScrollToUpload={() => {
                 const uploadSection = document.getElementById('uploadSection');
                 if (uploadSection) {
-                    const yOffset = -16;
-                    const y = uploadSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
+                    document.getElementById('uploadSection')?.scrollIntoView({ behavior: 'smooth' });
                 }
             }} />
             <div id="uploadSection">

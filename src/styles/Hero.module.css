@@ -38,3 +38,8 @@
 .heroButton:hover {
     transform: scale(1.05);
 }
+
+#uploadSection {
+    scroll-margin-top: 64px;
+    /* height of fixed header */
+}
