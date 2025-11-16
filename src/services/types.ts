@@ -25,6 +25,13 @@ interface Threewords {
     word_three: string;
 }
 
+export interface LibraryRaw {
+    recommended_book: string;
+    explanation: string;
+    chosen_segment: [number, number, number, number];
+    segments: Array<[string, [number, number, number, number]]>;
+}
+
 interface BaseAnalysis { }
 
 export interface HomeAnalysis extends BaseAnalysis {

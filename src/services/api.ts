@@ -1,4 +1,4 @@
-import type { Analysis, HomeAnalysis, LibraryAnalysis } from './types';
+import type { Analysis, HomeAnalysis, LibraryAnalysis, LibraryRaw } from './types';
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bookshelf-app-backend-457537281629.europe-west1.run.app';
@@ -44,6 +44,7 @@ export const analyzeBookshelf = async (
         );
 
         const data = response.data;
+        const libraryData = data as unknown as LibraryRaw;
 
         // ---------- IF NO DESCRIPTION: DONE ----------
         if (!description) return {
@@ -54,7 +55,7 @@ export const analyzeBookshelf = async (
         // ---------- STEP 2: HIGHLIGHT (library mode only) ----------
         const highlightForm = new FormData();
         highlightForm.append("file", file);
-        highlightForm.append("segment", JSON.stringify(data.chosen_segment));
+        highlightForm.append("segment", JSON.stringify(libraryData.chosen_segment));
 
         const highlightResponse = await axios.post(
             `${API_BASE_URL}/highlight`,
