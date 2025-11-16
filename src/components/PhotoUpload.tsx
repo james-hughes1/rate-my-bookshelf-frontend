@@ -2,25 +2,21 @@ import { House, BookOpen } from 'lucide-react';
 import React, { useState } from 'react';
 import { RotateCw } from 'lucide-react';
 import styles from '../styles/PhotoUpload.module.css';
+import { useBookshelf } from '../context/BookshelfContext';
+import { useNavigate } from 'react-router-dom';
 
-interface PhotoUploadProps {
-    onFileSelected: (file: File) => void;
-    onAnalyze: (file: File, description?: string) => void; // new description param
-}
+const PhotoUpload: React.FC = () => {
+    const { file, setFile, mode, setMode, description, setDescription } = useBookshelf();
+    const navigate = useNavigate();
 
-const PhotoUpload: React.FC<PhotoUploadProps> = ({ onFileSelected, onAnalyze }) => {
     const [preview, setPreview] = useState<string | null>(null);
     const [rotation, setRotation] = useState<number>(0);
-    const [file, setFile] = useState<File | null>(null);
-    const [mode, setMode] = useState<'home' | 'library'>('home');
-    const [description, setDescription] = useState<string>('');
     const [inputError, setInputError] = useState(false);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {
             setFile(selectedFile);
-            onFileSelected(selectedFile);
             setPreview(URL.createObjectURL(selectedFile));
             setRotation(0);
         }
@@ -29,36 +25,40 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ onFileSelected, onAnalyze }) 
     const handleRotate = () => setRotation((r) => r + 90);
 
     const handleAnalyzeClick = () => {
-        if (!file) return alert("Please upload a photo first!");
-        if (mode === 'library' && description.trim() === '') {
-            // Highlight input instead of alert
+        if (!file) {
             setInputError(true);
             return;
         }
-        // Clear error if input is fine
+        if (mode === 'library' && description.trim() === '') {
+            setInputError(true);
+            return;
+        }
         setInputError(false);
-        onAnalyze(file, mode === 'library' ? description : undefined);
+        navigate('/loading'); // go to loading screen
     };
+
 
     return (
         <section className={styles.container}>
             <div className={styles.modeToggle}>
-                <div className={`${styles.toggleOption} ${mode === 'home' ? styles.active : ''}`} onClick={() => setMode('home')}>
+                <div
+                    className={`${styles.toggleOption} ${mode === 'home' ? styles.active : ''}`}
+                    onClick={() => setMode('home')}
+                >
                     <House size={16} />
                     Home
                 </div>
-                <div className={`${styles.toggleOption} ${mode === 'library' ? styles.active : ''}`} onClick={() => setMode('library')}>
+                <div
+                    className={`${styles.toggleOption} ${mode === 'library' ? styles.active : ''}`}
+                    onClick={() => setMode('library')}
+                >
                     <BookOpen size={16} />
                     Library
                 </div>
-                <div className={styles.toggleSwoosh} style={{ transform: mode === 'home' ? 'translateX(0%)' : 'translateX(100%)' }} />
-            </div>
-
-            <div className={styles.textSection}>
-                <h2 className={styles.title}>Take a photo of your bookshelf</h2>
-                <p className={styles.subtitle}>
-                    Upload or capture an image of your bookshelf below. Try to ensure your bookshelf image is well-lit, clear, and captures the bookshelf straight-on.
-                </p>
+                <div
+                    className={styles.toggleSwoosh}
+                    style={{ transform: mode === 'home' ? 'translateX(0%)' : 'translateX(100%)' }}
+                />
             </div>
 
             {mode === 'library' && (
@@ -69,7 +69,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ onFileSelected, onAnalyze }) 
                         value={description}
                         onChange={(e) => {
                             setDescription(e.target.value);
-                            if (e.target.value.trim() !== '') setInputError(false); // remove highlight as user types
+                            if (e.target.value.trim() !== '') setInputError(false);
                         }}
                         className={`${styles.descriptionInput} ${inputError ? styles.inputError : ''}`}
                     />
@@ -117,7 +117,6 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ onFileSelected, onAnalyze }) 
                             <RotateCw size={18} />
                             Rotate
                         </button>
-
                         <button type="button" className={styles.analyzeBtn} onClick={handleAnalyzeClick}>
                             Analyse My Bookshelf
                         </button>

@@ -1,4 +1,4 @@
-import type { BookshelfAnalysis } from './types';
+import type { Analysis, HomeAnalysis, LibraryAnalysis } from './types';
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://bookshelf-app-backend-457537281629.europe-west1.run.app';
@@ -19,32 +19,70 @@ export const pingBackend = async (): Promise<boolean> => {
     }
 };
 
-/**
- * Call the real /process endpoint with the uploaded image.
- */
-export const analyzeBookshelf = async (file: File): Promise<BookshelfAnalysis> => {
+
+export const analyzeBookshelf = async (
+    file: File,
+    description?: string
+): Promise<Analysis> => {
+
+    // ---------- FORM DATA FOR FIRST CALL ----------
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
+    if (description) {
+        formData.append("description", description);
+    }
+
+    // Choose endpoint
+    const endpoint = description ? "/library" : "/mybookshelf";
 
     try {
-        const response = await axios.post<BookshelfAnalysis>(
-            `${API_BASE_URL}/mybookshelf`,
+        // ---------- STEP 1: ANALYZE ----------
+        const response = await axios.post<Analysis>(
+            `${API_BASE_URL}${endpoint}`,
             formData,
-            {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            }
+            { headers: { "Content-Type": "multipart/form-data" } }
         );
-        return response.data;
+
+        const data = response.data;
+
+        // ---------- IF NO DESCRIPTION: DONE ----------
+        if (!description) return {
+            ...data,
+            type: "home"
+        } as HomeAnalysis
+
+        // ---------- STEP 2: HIGHLIGHT (library mode only) ----------
+        const highlightForm = new FormData();
+        highlightForm.append("file", file);
+        highlightForm.append("segment", JSON.stringify(data.chosen_segment));
+
+        const highlightResponse = await axios.post(
+            `${API_BASE_URL}/highlight`,
+            highlightForm,
+            { responseType: "blob" }
+        );
+
+        // Convert to object URL for <img src />
+        const highlightedUrl = URL.createObjectURL(highlightResponse.data);
+
+        // ---------- RETURN MERGED RESULT ----------
+        return {
+            ...data,
+            highlighted_image: highlightedUrl,
+            type: "library"
+        } as LibraryAnalysis;
+
     } catch (err) {
-        console.error('Error analyzing bookshelf:', err);
+        console.error("Error analyzing bookshelf:", err);
         throw err;
     }
 };
 
+
 /**
  * Optional: keep a mock for testing without backend.
  */
-export const mockAnalyzeBookshelf = async (): Promise<BookshelfAnalysis> => {
+export const mockAnalyzeBookshelf = async (): Promise<Analysis> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve({
@@ -68,7 +106,8 @@ export const mockAnalyzeBookshelf = async (): Promise<BookshelfAnalysis> => {
                     popularity: 0.7,
                     focus: 0.1,
                     realism: -0.1
-                }
+                },
+                type: "home"
             });
         }, 1000);
     });

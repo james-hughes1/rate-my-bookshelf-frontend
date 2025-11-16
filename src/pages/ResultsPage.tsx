@@ -28,78 +28,107 @@ const ResultsPage: React.FC = () => {
 
     if (!result) return null;
 
-    const { three_words, scores, recommendation } = result;
-    const axisLabels: Record<string, [string, string]> = {
-        age: ['Classic', 'Modern'],
-        intensity: ['Beach Reads', 'Intense Study'],
-        mood: ['Dystopian', 'Inspiring'],
-        popularity: ['Esoteric', 'Well-known'],
-        focus: ['Plot', 'Characters'],
-        realism: ['Down-to-earth', 'Imaginary'],
-    };
+    if (result.type === "library") {
+        return (
+            <div className={styles.container}>
+                <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
 
-    return (
-        <div className={styles.container}>
-            <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
-
-            <section className={styles.tasteWordsSection}>
-                <h2 className={styles.tasteWordsHeading}>Your preferences:</h2>
-                <div className={styles.wordContainer}>
-                    {[three_words.word_one, three_words.word_two, three_words.word_three].map(word => (
-                        <span key={word} className={styles.word}>{word}</span>
-                    ))}
-                </div>
-            </section>
-
-            <section className={styles.scoresSection}>
-                {Object.entries(scores).map(([metric, value]) => (
-                    <ScoreBar
-                        key={metric}
-                        value={value}
-                        leftLabel={axisLabels[metric][0]}
-                        rightLabel={axisLabels[metric][1]}
+                <section className={styles.highlightSection}>
+                    <img
+                        src={result.highlighted_image}
+                        alt="Highlighted bookshelf"
+                        className={styles.highlightedImage}
                     />
-                ))}
-            </section>
+                </section>
 
-            <section className={styles.recommendationSection}>
-                {/* Entire card clickable */}
-                <div
-                    className={styles.recommendationCard}
-                    onClick={() => setIsModalOpen(true)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsModalOpen(true); }}
-                >
-                    {/* Info icon first */}
-                    <p className={styles.recommendationLabel}>
-                        Recommended Book:
-                        <h3 className={styles.recommendationTitle}>
-                            {recommendation.recommended_book}
-                        </h3>
-                        Click to learn more
+                <section className={styles.recommendationSection}>
+                    <p className={styles.recommendationLabelOrange}>Recommended Book: </p>
+                    <h3 className={styles.recommendationTitle}>
+                        {result.recommended_book}
+                    </h3>
+                    <p className={styles.recommendationExplanation}>
+                        {result.explanation}
                     </p>
-                </div>
-            </section>
+                </section>
 
-            {isModalOpen && (
-                <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
-                    <div className={styles.modalPanel} onClick={e => e.stopPropagation()}>
-                        <h2 className={styles.modalTitle}>{recommendation.recommended_book}</h2>
-                        <p className={styles.modalDescription}>{recommendation.explanation}</p>
-                        <button
-                            className={styles.modalCloseBtn}
-                            onClick={() => setIsModalOpen(false)}
-                        >
-                            Close
-                        </button>
+                <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
+                <LearnMoreBar setAboutVisible={setAboutVisible} />
+            </div>
+        );
+    } else {
+        const { three_words, scores, recommendation } = result;
+        const axisLabels: Record<string, [string, string]> = {
+            age: ['Classic', 'Modern'],
+            intensity: ['Beach Reads', 'Intense Study'],
+            mood: ['Dystopian', 'Inspiring'],
+            popularity: ['Esoteric', 'Well-known'],
+            focus: ['Plot', 'Characters'],
+            realism: ['Down-to-earth', 'Imaginary'],
+        };
+
+        return (
+            <div className={styles.container}>
+                <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
+
+                <section className={styles.tasteWordsSection}>
+                    <h2 className={styles.tasteWordsHeading}>Your preferences:</h2>
+                    <div className={styles.wordContainer}>
+                        {[three_words.word_one, three_words.word_two, three_words.word_three].map(word => (
+                            <span key={word} className={styles.word}>{word}</span>
+                        ))}
                     </div>
-                </div>
-            )}
-            <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
-            <LearnMoreBar setAboutVisible={setAboutVisible} />
-        </div>
-    );
+                </section>
+
+                <section className={styles.scoresSection}>
+                    {Object.entries(scores).map(([metric, value]) => (
+                        <ScoreBar
+                            key={metric}
+                            value={value}
+                            leftLabel={axisLabels[metric][0]}
+                            rightLabel={axisLabels[metric][1]}
+                        />
+                    ))}
+                </section>
+
+                <section className={styles.recommendationSection}>
+                    {/* Entire card clickable */}
+                    <div
+                        className={styles.recommendationCard}
+                        onClick={() => setIsModalOpen(true)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsModalOpen(true); }}
+                    >
+                        {/* Info icon first */}
+                        <p className={styles.recommendationLabel}>
+                            Recommended Book:
+                            <h3 className={styles.recommendationTitle}>
+                                {recommendation.recommended_book}
+                            </h3>
+                            Click to learn more
+                        </p>
+                    </div>
+                </section>
+
+                {isModalOpen && (
+                    <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+                        <div className={styles.modalPanel} onClick={e => e.stopPropagation()}>
+                            <h2 className={styles.modalTitle}>{recommendation.recommended_book}</h2>
+                            <p className={styles.modalDescription}>{recommendation.explanation}</p>
+                            <button
+                                className={styles.modalCloseBtn}
+                                onClick={() => setIsModalOpen(false)}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                )}
+                <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
+                <LearnMoreBar setAboutVisible={setAboutVisible} />
+            </div>
+        );
+    };
 };
 
 export default ResultsPage;

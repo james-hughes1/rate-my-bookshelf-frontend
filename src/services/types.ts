@@ -25,11 +25,21 @@ interface Threewords {
     word_three: string;
 }
 
-interface BookshelfAnalysis {
+interface BaseAnalysis { }
+
+export interface HomeAnalysis extends BaseAnalysis {
+    type: "home";
     books: BookInfo[];
     recommendation: Recommendation;
     three_words: Threewords;
     scores: Scores;
 }
 
-export type { BookshelfAnalysis, Scores, Recommendation, Threewords };
+export interface LibraryAnalysis extends BaseAnalysis {
+    type: "library";
+    recommended_book: string;
+    explanation: string;
+    highlighted_image: string;
+}
+
+export type Analysis = HomeAnalysis | LibraryAnalysis;

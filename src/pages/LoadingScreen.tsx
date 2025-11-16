@@ -12,7 +12,7 @@ const LoadingScreen: React.FC = () => {
     const [finished, setFinished] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const { file, setResult } = useBookshelf();
+    const { file, setResult, mode, description } = useBookshelf();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,23 +32,23 @@ const LoadingScreen: React.FC = () => {
 
         const analyze = async () => {
             try {
-                const data = await analyzeBookshelf(file);
+                const data = await analyzeBookshelf(file, mode === 'library' ? description : undefined);
                 setResult(data);
                 setFinished(true);
             } catch (err) {
                 console.error(err);
                 setError('Failed to analyze bookshelf. Please try again - make sure you take a clear, well-lit image.');
             } finally {
-                clearInterval(phraseInterval); // stop phrases only when API finishes
+                clearInterval(phraseInterval);
             }
         };
 
-        analyze(); // start the API call immediately
+        analyze();
 
         return () => {
             clearInterval(phraseInterval);
         };
-    }, [file, navigate, setResult]);
+    }, [file, navigate, setResult, mode, description]);
 
     const handleSeeResults = () => navigate('/results');
 
