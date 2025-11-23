@@ -34,3 +34,7 @@ h5 {
     align-items: center;
     justify-content: center;
 }
+
+#uploadSection {
+    padding-top: 20px;
+}

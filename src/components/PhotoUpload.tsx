@@ -40,6 +40,14 @@ const PhotoUpload: React.FC = () => {
 
     return (
         <section className={styles.container}>
+            <div className={styles.instructions}>
+                <p className={styles.instructionsText}>
+                    <strong>Home Mode:</strong> Provide recommendations based on your personal bookshelf.
+                </p>
+                <p className={styles.instructionsText}>
+                    <strong>Library Mode:</strong> Provide recommendations from books on someone else's shelf.
+                </p>
+            </div>
             <div className={styles.modeToggle}>
                 <div
                     className={`${styles.toggleOption} ${mode === 'home' ? styles.active : ''}`}

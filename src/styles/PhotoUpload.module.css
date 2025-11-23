@@ -34,6 +34,7 @@
     gap: 16px;
     width: 100%;
     max-width: 400px;
+    min-height: 800px;
 }
 
 .uploadPlaceholder {
@@ -226,4 +227,20 @@
     transition: transform 0.3s ease;
     z-index: 1;
     /* behind the options */
+}
+
+/* Instructions */
+.instructions {
+    background: #f5f7fa;
+    border-left: 4px solid #4a90e2;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.instructionsText {
+    margin: 3px 0;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
 }
