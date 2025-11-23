@@ -55,7 +55,7 @@ export const analyzeBookshelf = async (
         // ---------- STEP 2: HIGHLIGHT (library mode only) ----------
         const highlightForm = new FormData();
         highlightForm.append("file", file);
-        highlightForm.append("segment", JSON.stringify(libraryData.chosen_segment));
+        highlightForm.append("mask_idx", JSON.stringify(libraryData.chosen_segment));
 
         const highlightResponse = await axios.post(
             `${API_BASE_URL}/highlight`,
