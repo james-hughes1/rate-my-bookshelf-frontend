@@ -47,6 +47,9 @@ const PhotoUpload: React.FC = () => {
                 <p className={styles.instructionsText}>
                     <strong>Library Mode:</strong> Provide recommendations from books on someone else's shelf.
                 </p>
+                <p className={styles.instructionsText}>
+                    <strong>Upload Info:</strong> Give the tool the best chance by tidying up the bookshelf, taking the photo straight-on, and ensuring good lighting.
+                </p>
             </div>
             <div className={styles.modeToggle}>
                 <div
