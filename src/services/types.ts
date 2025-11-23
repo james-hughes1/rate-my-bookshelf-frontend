@@ -28,8 +28,7 @@ interface Threewords {
 export interface LibraryRaw {
     recommended_book: string;
     explanation: string;
-    chosen_segment: [number, number, number, number];
-    segments: Array<[string, [number, number, number, number]]>;
+    chosen_mask_idx: number;
 }
 
 interface BaseAnalysis { }
