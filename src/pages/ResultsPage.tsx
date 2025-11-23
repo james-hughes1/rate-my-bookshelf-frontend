@@ -66,6 +66,9 @@ const ResultsPage: React.FC = () => {
             realism: ['Down-to-earth', 'Imaginary'],
         };
 
+        // Tooltip logic
+        const [tooltipActive, setTooltipActive] = useState(true);
+
         return (
             <div className={styles.container}>
                 <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
@@ -73,9 +76,9 @@ const ResultsPage: React.FC = () => {
                 <section className={styles.tasteWordsSection}>
                     <h2 className={styles.tasteWordsHeading}>Your preferences:</h2>
                     <div className={styles.wordContainer}>
-                        {[three_words.word_one, three_words.word_two, three_words.word_three].map(word => (
-                            <span key={word} className={styles.word}>{word}</span>
-                        ))}
+                        <p className={styles.word}>
+                            {three_words.word_one}, {three_words.word_two}, {three_words.word_three}
+                        </p>
                     </div>
                 </section>
 
@@ -94,18 +97,25 @@ const ResultsPage: React.FC = () => {
                     {/* Entire card clickable */}
                     <div
                         className={styles.recommendationCard}
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={() => {
+                            setIsModalOpen(true);
+                            setTooltipActive(false); // stop tooltip forever
+                        }}
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsModalOpen(true); }}
                     >
-                        {/* Info icon first */}
+                        {tooltipActive && (
+                            <div className={styles.tooltipFloat}>
+                                Click me!
+                            </div>
+                        )}
+
                         <p className={styles.recommendationLabel}>
                             Recommended Book:
                             <h3 className={styles.recommendationTitle}>
                                 {recommendation.recommended_book}
                             </h3>
-                            Click to learn more
                         </p>
                     </div>
                 </section>

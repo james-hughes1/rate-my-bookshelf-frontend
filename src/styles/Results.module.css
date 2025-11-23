@@ -19,19 +19,19 @@
     font-weight: bold;
     color: #851c1c;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
 /* Three Words Section */
 .tasteWordsSection {
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .tasteWordsHeading {
     font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     color: black;
 }
 
@@ -151,6 +151,42 @@
     text-align: center;
     margin: 0;
     color: #333;
+}
+
+/* Tooltip */
+.tooltipFloat {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    pointer-events: none;
+    animation: floatBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes floatBounce {
+    0% {
+        transform: translateY(0);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 0.9;
+    }
+}
+
+.recommendationCard {
+    position: relative;
+    /* required so tooltip positions correctly */
 }
 
 /* Info icon */
