@@ -29,6 +29,11 @@ const ResultsPage: React.FC = () => {
     if (!result) return null;
 
     if (result.type === "library") {
+        const { recommended_book, explanation } = result;
+
+        // Tooltip logic for library mode
+        const [tooltipActive, setTooltipActive] = useState(true);
+
         return (
             <div className={styles.container}>
                 <h1 className={styles.pageHeader}>Rate My Bookshelf</h1>
@@ -42,14 +47,46 @@ const ResultsPage: React.FC = () => {
                 </section>
 
                 <section className={styles.recommendationSection}>
-                    <p className={styles.recommendationLabelOrange}>Recommended Book: </p>
-                    <h3 className={styles.recommendationTitle}>
-                        {result.recommended_book}
-                    </h3>
-                    <p className={styles.recommendationExplanation}>
-                        {result.explanation}
-                    </p>
+                    {/* Entire card clickable */}
+                    <div
+                        className={styles.recommendationCard}
+                        onClick={() => {
+                            setIsModalOpen(true);
+                            setTooltipActive(false); // stop tooltip forever
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsModalOpen(true); }}
+                    >
+                        {tooltipActive && (
+                            <div className={styles.tooltipFloat}>
+                                Click me!
+                            </div>
+                        )}
+
+                        <p className={styles.recommendationLabel}>
+                            Recommended Book:
+                            <h3 className={styles.recommendationTitle}>
+                                {recommended_book}
+                            </h3>
+                        </p>
+                    </div>
                 </section>
+
+                {isModalOpen && (
+                    <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+                        <div className={styles.modalPanel} onClick={e => e.stopPropagation()}>
+                            <h2 className={styles.modalTitle}>{recommended_book}</h2>
+                            <p className={styles.modalDescription}>{explanation}</p>
+                            <button
+                                className={styles.modalCloseBtn}
+                                onClick={() => setIsModalOpen(false)}
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 <AboutPanel visible={aboutVisible} onClose={() => setAboutVisible(false)} />
                 <LearnMoreBar setAboutVisible={setAboutVisible} />

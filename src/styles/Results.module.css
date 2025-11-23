@@ -268,7 +268,7 @@
 
 @media (max-width: 768px) {
     .highlightedImage {
-        max-height: 20vh;
+        max-height: 60vh;
     }
 }
 
