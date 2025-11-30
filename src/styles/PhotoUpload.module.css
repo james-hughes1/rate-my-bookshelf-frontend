@@ -230,17 +230,26 @@
 }
 
 /* Instructions */
-.instructions {
-    background: #f5f7fa;
-    border-left: 4px solid #4a90e2;
-    padding: 16px 20px;
-    border-radius: 8px;
-    margin: 16px 0;
+.infoBtn {
+    position: absolute;
+    right: -40px;
+    /* adjust spacing from toggle */
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
-.instructionsText {
-    margin: 3px 0;
-    font-size: 14px;
-    color: #333;
-    line-height: 1.4;
+.infoBtn:hover {
+    background: rgba(255, 255, 255, 0.4);
 }

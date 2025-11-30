@@ -4,8 +4,11 @@ import { RotateCw } from 'lucide-react';
 import styles from '../styles/PhotoUpload.module.css';
 import { useBookshelf } from '../context/BookshelfContext';
 import { useNavigate } from 'react-router-dom';
+interface PhotoUploadProps {
+    setInstructionsVisible: (visible: boolean) => void;
+}
 
-const PhotoUpload: React.FC = () => {
+const PhotoUpload: React.FC<PhotoUploadProps> = ({ setInstructionsVisible }) => {
     const { file, setFile, mode, setMode, description, setDescription } = useBookshelf();
     const navigate = useNavigate();
 
@@ -40,17 +43,6 @@ const PhotoUpload: React.FC = () => {
 
     return (
         <section className={styles.container}>
-            <div className={styles.instructions}>
-                <p className={styles.instructionsText}>
-                    <strong>Home Mode:</strong> Provide recommendations based on your personal bookshelf.
-                </p>
-                <p className={styles.instructionsText}>
-                    <strong>Library Mode:</strong> Provide recommendations from books on someone else's shelf.
-                </p>
-                <p className={styles.instructionsText}>
-                    <strong>Upload Info:</strong> Give the tool the best chance by tidying up the bookshelf, taking the photo straight-on, and ensuring good lighting.
-                </p>
-            </div>
             <div className={styles.modeToggle}>
                 <div
                     className={`${styles.toggleOption} ${mode === 'home' ? styles.active : ''}`}
@@ -70,13 +62,19 @@ const PhotoUpload: React.FC = () => {
                     className={styles.toggleSwoosh}
                     style={{ transform: mode === 'home' ? 'translateX(0%)' : 'translateX(100%)' }}
                 />
+                <button
+                    className={styles.infoBtn}
+                    onClick={() => setInstructionsVisible(true)}
+                >
+                    i
+                </button>
             </div>
 
             {mode === 'library' && (
                 <div className={styles.libraryDescription}>
                     <input
                         type="text"
-                        placeholder="Describe what sort of book you're looking for..."
+                        placeholder="Describe what you're looking for..."
                         value={description}
                         onChange={(e) => {
                             setDescription(e.target.value);
